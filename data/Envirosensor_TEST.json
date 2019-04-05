@@ -1,0 +1,101 @@
+[
+	{
+		"json_featuretype" : "iotp_kfb22t_envirosensor_2018-w22",
+		"deviceType" : "Envirosensor",
+		"deviceId" : "8010",
+		"eventType" : "event",
+		"format" : "json",
+		"timestamp" : "2018-06-03T20:40:41.915+01:00",
+		"data" : "{ \"DeviceID\": \"8010\", \"DeviceType\": \"Envirosensor\", \"Event\": \"event\", \"Time\": \"2018-06-03 20:40:41.629620\", \"Data\": { \"TMP\": \"36.187\", \"OPT\": \"4.17\", \"BAT\": \"36.58\", \"HDT\": \"36.32\", \"BAR\": \"1016.17\", \"HDH\": \"22.65\" } }"
+	},
+	{
+		"json_featuretype" : "iotp_kfb22t_envirosensor_2018-w22",
+		"deviceType" : "Envirosensor",
+		"deviceId" : "8017",
+		"eventType" : "event",
+		"format" : "json",
+		"timestamp" : "2018-06-01T04:22:23.180+01:00",
+		"data" : "{ \"DeviceID\": \"8017\", \"DeviceType\": \"Envirosensor\", \"Event\": \"event\", \"Time\": \"2018-06-01 04:22:22.881564\", \"Data\": { \"TMP\": \"34.562\", \"OPT\": \"0.00\", \"BAT\": \"35.06\", \"HDT\": \"34.76\", \"BAR\": \"1016.14\", \"HDH\": \"28.68\" } }"
+	},
+	{
+		"json_featuretype" : "iotp_kfb22t_envirosensor_2018-w22",
+		"deviceType" : "Envirosensor",
+		"deviceId" : "8008",
+		"eventType" : "event",
+		"format" : "json",
+		"timestamp" : "2018-06-01T13:04:56.442+01:00",
+		"data" : "{ \"DeviceID\": \"8008\", \"DeviceType\": \"Envirosensor\", \"Event\": \"event\", \"Time\": \"2018-06-01 13:04:56.152669\", \"Data\": { \"TMP\": \"34.781\", \"OPT\": \"6.17\", \"BAT\": \"35.49\", \"HDT\": \"35.06\", \"BAR\": \"1017.23\", \"HDH\": \"26.23\" } }"
+	},
+	{
+		"json_featuretype" : "iotp_kfb22t_envirosensor_2018-w22",
+		"deviceType" : "Envirosensor",
+		"deviceId" : "8019",
+		"eventType" : "event",
+		"format" : "json",
+		"timestamp" : "2018-05-29T22:48:19.150+01:00",
+		"data" : "{ \"DeviceID\": \"8019\", \"DeviceType\": \"Envirosensor\", \"Event\": \"event\", \"Time\": \"2018-05-29 22:48:18.852665\", \"Data\": { \"TMP\": \"33.843\", \"OPT\": \"73.04\", \"BAT\": \"34.07\", \"HDT\": \"34.14\", \"BAR\": \"1013.88\", \"HDH\": \"21.58\" } }"
+	},
+	{
+		"json_featuretype" : "iotp_kfb22t_envirosensor_2018-w22",
+		"deviceType" : "Envirosensor",
+		"deviceId" : "8010",
+		"eventType" : "event",
+		"format" : "json",
+		"timestamp" : "2018-06-01T13:19:15.436+01:00",
+		"data" : "{ \"DeviceID\": \"8010\", \"DeviceType\": \"Envirosensor\", \"Event\": \"event\", \"Time\": \"2018-06-01 13:19:15.175496\", \"Data\": { \"OPT\": \"6.67\", \"TMP\": \"34.625\", \"BAT\": \"35.05\", \"HDT\": \"34.77\", \"BAR\": \"1017.59\", \"HDH\": \"27.41\" } }"
+	},
+	{
+		"json_featuretype" : "iotp_kfb22t_envirosensor_2018-w22",
+		"deviceType" : "Envirosensor",
+		"deviceId" : "8004",
+		"eventType" : "event",
+		"format" : "json",
+		"timestamp" : "2018-06-02T23:12:12.511+01:00",
+		"data" : "{ \"DeviceID\": \"8004\", \"DeviceType\": \"Envirosensor\", \"Event\": \"event\", \"Time\": \"2018-06-02 23:12:12.230449\", \"Data\": { \"TMP\": \"35.906\", \"OPT\": \"4.89\", \"BAT\": \"36.19\", \"HDT\": \"36.06\", \"BAR\": \"1017.23\", \"HDH\": \"18.90\" } }"
+	},
+	{
+		"json_featuretype" : "iotp_kfb22t_envirosensor_2018-w22",
+		"deviceType" : "Envirosensor",
+		"deviceId" : "8008",
+		"eventType" : "event",
+		"format" : "json",
+		"timestamp" : "2018-06-03T07:33:17.285+01:00",
+		"data" : "{ \"DeviceID\": \"8008\", \"DeviceType\": \"Envirosensor\", \"Event\": \"event\", \"Time\": \"2018-06-03 07:33:16.774434\", \"Data\": { \"OPT\": \"8.50\", \"TMP\": \"35.812\", \"BAT\": \"36.51\", \"HDT\": \"36.07\", \"BAR\": \"1018.17\", \"HDH\": \"21.66\" } }"
+	},
+	{
+		"json_featuretype" : "iotp_kfb22t_envirosensor_2018-w22",
+		"deviceType" : "Envirosensor",
+		"deviceId" : "8019",
+		"eventType" : "event",
+		"format" : "json",
+		"timestamp" : "2018-05-30T09:25:24.368+01:00",
+		"data" : "{ \"DeviceID\": \"8019\", \"DeviceType\": \"Envirosensor\", \"Event\": \"event\", \"Time\": \"2018-05-30 09:25:24.052756\", \"Data\": { \"TMP\": \"34.718\", \"OPT\": \"74.00\", \"BAT\": \"34.93\", \"HDT\": \"35.01\", \"BAR\": \"1013.19\", \"HDH\": \"20.34\" } }"
+	},
+	{
+		"json_featuretype" : "iotp_kfb22t_envirosensor_2018-w22",
+		"deviceType" : "Envirosensor",
+		"deviceId" : "8005",
+		"eventType" : "event",
+		"format" : "json",
+		"timestamp" : "2018-06-03T00:30:56.982+01:00",
+		"data" : "{ \"DeviceID\": \"8005\", \"DeviceType\": \"Envirosensor\", \"Event\": \"event\", \"Time\": \"2018-06-03 00:30:56.678239\", \"Data\": { \"TMP\": \"35.281\", \"OPT\": \"108.72\", \"BAT\": \"35.87\", \"HDT\": \"35.52\", \"BAR\": \"1018.45\", \"HDH\": \"22.71\" } }"
+	},
+	{
+		"json_featuretype" : "iotp_kfb22t_envirosensor_2018-w22",
+		"deviceType" : "Envirosensor",
+		"deviceId" : "8018",
+		"eventType" : "event",
+		"format" : "json",
+		"timestamp" : "2018-06-03T09:34:58.736+01:00",
+		"data" : "{ \"DeviceID\": \"8018\", \"DeviceType\": \"Envirosensor\", \"Event\": \"event\", \"Time\": \"2018-06-03 09:34:58.436492\", \"Data\": { \"TMP\": \"36.500\", \"OPT\": \"0.24\", \"BAT\": \"37.08\", \"HDT\": \"36.84\", \"BAR\": \"1018.45\", \"HDH\": \"17.05\" } }"
+	},
+	{
+		"json_featuretype" : "iotp_kfb22t_envirosensor_2018-w22",
+		"deviceType" : "Envirosensor",
+		"deviceId" : "8016",
+		"eventType" : "event",
+		"format" : "json",
+		"timestamp" : "2018-06-03T07:40:26.790+01:00",
+		"data" : "{ \"DeviceID\": \"8016\", \"DeviceType\": \"Envirosensor\", \"Event\": \"event\", \"Time\": \"2018-06-03 07:40:26.538855\", \"Data\": { \"TMP\": \"35.531\", \"OPT\": \"111.92\", \"BAT\": \"36.04\", \"HDT\": \"35.83\", \"BAR\": \"1018.69\", \"HDH\": \"19.87\" } }"
+	}
+]
