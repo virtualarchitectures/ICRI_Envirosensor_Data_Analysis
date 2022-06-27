@@ -4,7 +4,7 @@ This repository contains a basic example for reading and analysing the original 
 
 The project data is also avialble for download under Creative Commons license with attribution from the IEEE data portal: https://ieee-dataport.org/open-access/icri-envirosensor-data
 
-## ABSTRACT 
+## Abstract 
 
 The Here East Digital Twin was a six month trial of a real-time 3D data visualisation platform, designed for the purpose of supporting operational management in the built environment.
 
