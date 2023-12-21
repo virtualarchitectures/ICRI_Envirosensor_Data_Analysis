@@ -7,20 +7,28 @@ raw_folder = "../data/raw/envirosensor/"
 interim_folder = "../data/interim/envirosensor/"
 processed_folder = "../data/processed/envirosensor/"
 
+platform_keys = [
+    "json_featuretype",
+    "deviceType",
+    "deviceId",
+    "eventType",
+    "format",
+    "timestamp",
+    "data",
+]
+device_keys = [
+    "DeviceID",
+    "DeviceType",
+    "Envirosensor",
+    "Event",
+    "Time",
+    "Data",
+]
 data_keys = ["TMP", "OPT", "BAT", "HDT", "BAR", "HDH"]
 
 
 def validate_json(obj):
     # define the expected keys
-    platform_keys = [
-        "json_featuretype",
-        "deviceType",
-        "deviceId",
-        "eventType",
-        "format",
-        "timestamp",
-        "data",
-    ]
 
     # check if all platform metadata are present in the object
     if not all(key in obj for key in platform_keys):
@@ -51,32 +59,61 @@ def log_errors(data):
     return df
 
 
+def extract_values(json_str, keys):
+    json_data = json.loads(json_str)
+    return [json_data.get(key) for key in keys]
+
+
 def clean_data(data):
     # convert json data to a Pandas DataFrame
     df = pd.json_normalize(data)
 
-    # convert the 'timestamp' column to datetime format
-    df["timestamp"] = pd.to_datetime(df["timestamp"])
+    # extract the device metadata
+    device_df = pd.DataFrame(
+        df["data"].apply(lambda x: extract_values(x, device_keys)).tolist(),
+        columns=device_keys,
+    )
 
-    # extract the 'Data' column as a nested dictionary
-    df["Data"] = df["data"].apply(lambda x: json.loads(x).get("Data", {}))
+    # extract the device's data payload
+    df["Data"] = df["data"].apply(lambda x: extract_values(x, ["Data"])[0])
+    payload_df = pd.DataFrame(df["Data"].tolist(), columns=data_keys)
 
-    # filter out unexpected key-value pairs
-    df_data = pd.DataFrame(df["Data"].tolist(), columns=data_keys)
-
-    # merge the filtered 'Data' into the DataFrame
-    df = pd.concat(
+    # merge the required data
+    combined_df = pd.concat(
         [
-            df.drop(["json_featuretype", "format", "data", "Data"], axis=1),
-            df_data,
+            df[["json_featuretype", "timestamp"]],
+            device_df[
+                [
+                    "DeviceID",
+                    "DeviceType",
+                    "Event",
+                    "Time",
+                ]
+            ],
+            payload_df[["TMP", "OPT", "BAT", "HDT", "BAR", "HDH"]],
         ],
         axis=1,
     )
 
-    # convert desired fields to numeric
-    df[data_keys] = df[data_keys].apply(pd.to_numeric, errors="coerce")
+    # convert data fields to numeric
+    combined_df[data_keys] = combined_df[data_keys].apply(
+        pd.to_numeric, errors="coerce"
+    )
 
-    return df
+    # convert timestamps to datetime format
+    combined_df["timestamp"] = pd.to_datetime(combined_df["timestamp"], errors="coerce")
+    combined_df["Time"] = pd.to_datetime(combined_df["Time"], errors="coerce")
+
+    # rename columns
+    combined_df = combined_df.rename(
+        columns={
+            "json_featuretype": "File",
+            "timestamp": "PlatformTime",
+            "Time": "DeviceTime",
+        }
+    )
+
+    return combined_df
 
 
 def clean_envirosensor_data(input_folder=raw_folder, output_folder=interim_folder):
@@ -90,18 +127,20 @@ def clean_envirosensor_data(input_folder=raw_folder, output_folder=interim_folde
             file_path = os.path.join(input_folder, filename)
 
             # read JSON data from file
-            with open(file_path, "r") as file:
-                data = json.load(file)
+            try:
+                with open(file_path, "r") as file:
+                    data = json.load(file)
 
-                # log errors
-                logged_df = log_errors(data)
+                    # log errors and clean the data
+                    logged_df = log_errors(data)
+                    cleaned_df = clean_data(data)
 
-                # clean the data
-                cleaned_df = clean_data(data)
+                # append the current DataFrames to lists
+                logged_dfs.append(logged_df)
+                cleaned_dfs.append(cleaned_df)
 
-            # append the current DataFrames to lists
-            logged_dfs.append(logged_df)
-            cleaned_dfs.append(cleaned_df)
+            except Exception as e:
+                print(f"Error processing {file_path}: {e}")
 
     # concatenate DataFrames in each list
     error_df = pd.concat(logged_dfs, ignore_index=True)
@@ -109,15 +148,15 @@ def clean_envirosensor_data(input_folder=raw_folder, output_folder=interim_folde
 
     # save DataFrames to CSV
     os.makedirs(output_folder, exist_ok=True)
-    error_df.to_csv(os.path.join(output_folder, "error_data.csv"), index=False)
+    error_df.to_csv(f"{output_folder}error_data.csv", index=False)
     data_df.to_csv(f"{output_folder}combined_data.csv", index=False)
 
     # display counts
     print(f"Json objects with missing keys: {len(error_df)}")
     print(f"Cleaned sensor readings: {len(data_df)}")
 
-    # return DataFrames
-    return data_df, error_df
+    # return data as DataFrame
+    return data_df
 
 
 if __name__ == "__main__":
