@@ -7,6 +7,7 @@ raw_folder = "../data/raw/envirosensor/"
 interim_folder = "../data/interim/envirosensor/"
 processed_folder = "../data/processed/envirosensor/"
 
+# json keys
 platform_keys = [
     "json_featuretype",
     "deviceType",
@@ -28,8 +29,6 @@ data_keys = ["TMP", "OPT", "BAT", "HDT", "BAR", "HDH"]
 
 
 def validate_json(obj):
-    # define the expected keys
-
     # check if all platform metadata are present in the object
     if not all(key in obj for key in platform_keys):
         return False
