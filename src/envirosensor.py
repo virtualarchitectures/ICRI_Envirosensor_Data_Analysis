@@ -126,12 +126,16 @@ def clean_data(data):
 
 
 def clean_envirosensor_data(input_folder=raw_folder, output_folder=interim_folder):
+    print("Cleaning Envirosensor data...")
+
     # initialize an empty list to store DataFrames
     cleaned_dfs = []
     logged_dfs = []
 
     # loop through each file in the folder
     for filename in os.listdir(input_folder):
+        print(f"Processing {filename}...")
+
         if filename.endswith(".json"):
             file_path = os.path.join(input_folder, filename)
 
@@ -155,18 +159,26 @@ def clean_envirosensor_data(input_folder=raw_folder, output_folder=interim_folde
     error_df = pd.concat(logged_dfs, ignore_index=True)
     data_df = pd.concat(cleaned_dfs, ignore_index=True)
 
+    print("Saving data...")
+
     # save DataFrames to CSV
     os.makedirs(output_folder, exist_ok=True)
     error_df.to_csv(f"{output_folder}error_log.csv", index=False)
     data_df.to_csv(f"{output_folder}cleaned_data.csv", index=False)
 
+    print("Processing complete!")
+
     # display counts
-    print(f"Json objects with missing keys/values: {len(error_df)}")
+    print(f"Logged errors: {len(error_df)}/{len(data_df)}")
     print(f"Cleaned sensor readings: {len(data_df)}")
 
     # return data as DataFrame
     return data_df
 
 
-if __name__ == "__main__":
+def main():
     cleaned_data = clean_envirosensor_data(raw_folder, interim_folder)
+
+
+if __name__ == "__main__":
+    main()
