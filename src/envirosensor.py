@@ -28,32 +28,42 @@ device_keys = [
 data_keys = ["TMP", "OPT", "BAT", "HDT", "BAR", "HDH"]
 
 
-def validate_json(obj):
-    # check if all platform metadata are present in the object
+def validate_data(obj):
+    # check platform metadata
     if not all(key in obj for key in platform_keys):
-        return False
+        return "Platform metadata"
+
+    # check device metadata in nested "data" field
+    if not all(key in obj.get("data", {}) for key in device_keys):
+        return "Device metadata"
 
     # parse the device information in the nested "data" field as JSON
     try:
         device = json.loads(obj["data"])
     except json.JSONDecodeError:
-        return False
+        return "Invalid JSON format"
 
-    # check if all the expected data are present in the nested "Data" object
-    return all(key in device.get("Data", {}) for key in data_keys)
+    # check sensor readings in the nested "Data" field
+    if not all(key in device.get("Data", {}) for key in data_keys):
+        return "Sensor readings"
+
+    # validation successful
+    else:
+        return None
 
 
 def log_errors(data):
-    list = []
+    error_list = []
 
-    # check each object in the JSON data
+    # check if the data contains required keys
     for obj in data:
-        # check if the object contains required keys
-        if not validate_json(obj):
-            list.append(obj)
+        error_reason = validate_data(obj)
+        if error_reason:
+            obj["error"] = error_reason
+            error_list.append(obj)
 
     # create a DataFrame from the error list
-    df = pd.DataFrame(list)
+    df = pd.DataFrame(error_list)
 
     return df
 
@@ -147,11 +157,11 @@ def clean_envirosensor_data(input_folder=raw_folder, output_folder=interim_folde
 
     # save DataFrames to CSV
     os.makedirs(output_folder, exist_ok=True)
-    error_df.to_csv(f"{output_folder}error_data.csv", index=False)
-    data_df.to_csv(f"{output_folder}combined_data.csv", index=False)
+    error_df.to_csv(f"{output_folder}error_log.csv", index=False)
+    data_df.to_csv(f"{output_folder}cleaned_data.csv", index=False)
 
     # display counts
-    print(f"Json objects with missing keys: {len(error_df)}")
+    print(f"Json objects with missing keys/values: {len(error_df)}")
     print(f"Cleaned sensor readings: {len(data_df)}")
 
     # return data as DataFrame
