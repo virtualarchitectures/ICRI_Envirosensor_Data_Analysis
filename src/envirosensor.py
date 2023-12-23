@@ -1,6 +1,7 @@
 import os
 import json
 import pandas as pd
+import pytz
 
 # data folders
 raw_folder = "../data/raw/envirosensor/"
@@ -109,9 +110,16 @@ def clean_data(data):
         pd.to_numeric, errors="coerce"
     )
 
-    # convert timestamps to datetime format
-    combined_df["timestamp"] = pd.to_datetime(combined_df["timestamp"], errors="coerce")
-    combined_df["Time"] = pd.to_datetime(combined_df["Time"], errors="coerce")
+    # convert platform timestamps to datetime format
+    combined_df["timestamp"] = pd.to_datetime(
+        combined_df["timestamp"], errors="coerce", format="ISO8601"
+    )
+
+    # convert device timestamps to datetime format and set timezone
+    london_tz = pytz.timezone("Europe/London")
+    combined_df["Time"] = pd.to_datetime(
+        combined_df["Time"], errors="coerce", format="ISO8601"
+    ).dt.tz_localize(london_tz)
 
     # rename columns
     combined_df = combined_df.rename(
